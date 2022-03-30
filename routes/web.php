@@ -31,6 +31,19 @@ Route::resource('/note', NotesController::class);
 Route::delete('/invoice/{invoiceID}/{itemID}', [InvoiceController::class, 'deleteItem'])->name('equipment.deleteItem');
 Route::post('/invoice/{invoiceID}/{itemID}', [InvoiceController::class, 'addItem'])->name('equipment.addItem');
 
+Route::get('/db-test', function () {
+    try {         
+         echo DB::connection()->getDatabaseName();     
+    } catch (Exception $e) {
+          echo 'None';
+    }
+});    
+
+Route::get('/db-migrate', function () {
+    Artisan::call('migrate');
+    echo Artisan::output();
+});
+
 
 Route::get('/', function () {
     return view('welcome');
